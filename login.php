@@ -1,6 +1,6 @@
 <?php
 
-
+session_start();
 
 if (isset($_POST['submit'])) {
     $user = 'user';
@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
         if ($username == $user && $password == $pass) {
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
-            echo "<script>alert('Berhasil Login');</script>";
+            header("Location: index.php");
         } else {
             echo "<script>alert('Username atau Password salah');</script>";
         }
@@ -46,4 +46,3 @@ if (isset($_POST['submit'])) {
     </form>
 </body>
 </html>
-
