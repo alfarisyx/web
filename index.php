@@ -1,11 +1,11 @@
 <?php
+include 'koneksi.php';
 session_start();
 
-if (!isset($_SESSION['username']) || !isset($_SESSION['password'])) {
-    echo "<script>alert('Anda belum login'); window.location.href = 'login.php';</script>";
-    exit();
-}
-$username = $_SESSION['username'];
+if (!isset($_SESSION['username'])) {
+    header('location:login.php');
+    } 
+    $username = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

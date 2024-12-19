@@ -1,24 +1,24 @@
 <?php
-
+include 'koneksi.php';
 session_start();
-
 if (isset($_POST['submit'])) {
-    $user = 'user';
-    $pass = 'pass';
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
+    $query = "SELECT * FROM user WHERE username = '$username'";
+    $result = mysqli_query($koneksi, $query);
 
-        if ($username == $user && $password == $pass) {
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($_POST['password'], $row['password'])) {
             $_SESSION['username'] = $username;
-            $_SESSION['password'] = $password;
-            header("Location: index.php");
+            header('Location: index.php');
+            exit();
         } else {
-            echo "<script>alert('Username atau Password salah');</script>";
+            echo "<script>alert('Username atau password salah. Silahkan coba lagi.');</script>";
         }
-    }
-
-
+    } 
+}
 
 ?>
 
@@ -46,3 +46,4 @@ if (isset($_POST['submit'])) {
     </form>
 </body>
 </html>
+
